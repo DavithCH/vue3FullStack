@@ -1,15 +1,21 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
+import router from "../router";
 
 const email = ref("");
 const password = ref("");
 const handleSignIn = async () => {
-  const response = await axios.post("http://localhost:4000/user/login", {
-    email: email.value,
-    password: password.value,
-  });
-  localStorage.setItem("user", JSON.stringify(response.data));
+  try {
+    const response = await axios.post("http://localhost:4000/user/login", {
+      email: email.value,
+      password: password.value,
+    });
+    localStorage.setItem("user", JSON.stringify(response.data));
+    router.push({ path: "/", replace: true });
+  } catch (error) {
+    console.log(error);
+  }
 };
 </script>
 <template>

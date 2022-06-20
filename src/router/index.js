@@ -4,6 +4,8 @@ import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
 import About from "../views/About.vue";
 import Todo from "../views/Todo.vue";
+import Random from "../views/Random.vue";
+import CRUD from "../views/CRUD.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +34,16 @@ const router = createRouter({
       path: "/todo",
       name: "todo",
       component: Todo,
+    },
+    {
+      path: "/random",
+      name: "random",
+      component: Random,
+    },
+    {
+      path: "/crud",
+      name: "crud",
+      component: CRUD,
     },
   ],
 });
