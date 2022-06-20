@@ -2,6 +2,7 @@
 import { ref, onMounted, watchEffect } from "vue";
 import axios from "axios";
 const listOfString = ref(null);
+const newString = ref(localStorage.getItem("currentInput") || "");
 onMounted(() => {
   const fetchAllString = async () => {
     const response = await axios.get("http://localhost:4000/string/list");
@@ -12,16 +13,16 @@ onMounted(() => {
 
 watchEffect(() => {
   listOfString;
+  localStorage.setItem("currentInput", newString.value);
 });
-
-const newString = ref("");
 
 const handleAddString = async () => {
   try {
-    const response = await axios.post("http://localhost:4000/string/create", {
+    await axios.post("http://localhost:4000/string/create", {
       string: newString.value,
     });
-    console.log(response.data);
+    newString.value = "";
+    localStorage.removeItem("currentInput");
   } catch (error) {
     console.log(error);
   }
