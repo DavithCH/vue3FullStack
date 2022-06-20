@@ -36,7 +36,6 @@ const handleRegister = async () => {
     });
   } catch (err) {
     error.value = err;
-    console.log(err.response.data.message);
   }
 };
 </script>

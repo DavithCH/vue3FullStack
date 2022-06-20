@@ -9,7 +9,7 @@ const handleSignIn = async () => {
     email: email.value,
     password: password.value,
   });
-  console.log(response.data);
+  localStorage.setItem("user", JSON.stringify(response.data));
 };
 </script>
 <template>
