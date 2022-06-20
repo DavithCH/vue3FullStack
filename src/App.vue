@@ -5,24 +5,16 @@ import router from "./router";
 
 const signOut = () => {
   localStorage.clear();
-  user.value = false;
-  show.value = false;
 };
 
-const show = ref(false);
-const user = ref(localStorage.getItem("user"));
+const user = ref(localStorage.getItem("user") || null);
 
 onMounted(() => {
-  if (user.value) {
-    show.value = true;
-  } else {
-    router.push({ path: "/signin" });
-  }
+  if (!user.value) router.push({ path: "/signin" });
 });
 
 watchEffect(() => {
-  user;
-  show;
+  user.value = localStorage.getItem("user");
 });
 </script>
 
@@ -37,10 +29,10 @@ watchEffect(() => {
           <RouterLink to="/signup" class="nav-link">Inscription</RouterLink>
           <RouterLink to="/todo" class="nav-link">Todo</RouterLink>
           <RouterLink to="/todo" class="nav-link">Au hasard</RouterLink>
-          <RouterLink to="/signin" v-if="show" class="nav-link"
+          <RouterLink to="/signin" v-if="user" class="nav-link"
             >Se connecter</RouterLink
           >
-          <button v-if="show" class="btn btn-danger" @click="signOut">
+          <button v-if="user" class="btn btn-danger" @click="signOut">
             Déconnecter
           </button>
         </nav>
